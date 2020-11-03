@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- spring事务的配置 -->
+
+    <!-- 1.注册 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" value="dataSource"/>
+    </bean>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"/>
+
+    <!-- 如果名字是 transactionManager transaction-manager可以省略不写 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+    <aop:config>
+        <!-- 声明切面类 -->
+        <aop:pointcut id="txPoint" expression="execution(* com.smart.transaction.serervice..*(..))"/>
+        <!-- 声明通知 -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
+    </aop:config>
+    <tx:advice id="txAdvice">
+        <!-- 开启事务 -->
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED" timeout="-1"/>
+            <tx:method name="update*"/>
+            <tx:method name="del*"/>
+        </tx:attributes>
+    </tx:advice>
+</beans>
