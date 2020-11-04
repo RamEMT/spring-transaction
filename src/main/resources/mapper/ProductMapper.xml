@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smart.transaction.mapper.ProductMapper">
+    <select id="selectListById" resultType="com.smart.transaction.entity.Product">
+        SELECT name, price, img, status, create_date
+        FROM t_product
+        WHERE status = 1
+          AND product_id IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

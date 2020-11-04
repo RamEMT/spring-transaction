@@ -4,8 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.smart.transaction.mapper.ProductStockMapper">
-
-    <select id="selectProductSize" resultType="int">
-        SELECT total-stock FROM product_stock WHERE product_id = #{productId};
+    <resultMap id="BaseResultMap" type="com.smart.transaction.entity.ProductStock">
+        <result property="total" column="total"/>
+        <result property="stock" column="stock"/>
+    </resultMap>
+    <select id="selectProductSize" resultMap="BaseResultMap">
+        SELECT total, stock
+        FROM product_stock
+                WHERE product_id IN
+        <foreach collection="ids" item="productId" open="(" close=")" separator=",">
+            #{productId}
+        </foreach>
     </select>
 </mapper>

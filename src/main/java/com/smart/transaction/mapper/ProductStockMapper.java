@@ -1,6 +1,9 @@
 package com.smart.transaction.mapper;
 
+import com.smart.transaction.entity.ProductStock;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @Author Emilia
@@ -9,8 +12,8 @@ import org.apache.ibatis.annotations.Param;
 public interface ProductStockMapper {
     /**
      * 查询商品库存信息
-     * @param productId
+     * @param ids
      * @return
      */
-    int selectProductSize(@Param("productId")int productId);
+    List<ProductStock> selectProductSize(@Param("ids")List<Integer> ids);
 }

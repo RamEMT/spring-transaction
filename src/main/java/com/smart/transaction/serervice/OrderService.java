@@ -1,6 +1,8 @@
 package com.smart.transaction.serervice;
 
+import com.smart.transaction.common.RequestEntity;
 import com.smart.transaction.common.request.OrderRequestParams;
+import com.smart.transaction.common.vo.OrderVO;
 
 /**
  * @Author Emilia
@@ -12,5 +14,5 @@ public interface OrderService {
      * @param orderRequestParams 请求参数对象
      * @return
      */
-    String createOrder(OrderRequestParams orderRequestParams);
+    RequestEntity<OrderVO> createOrder(OrderRequestParams orderRequestParams);
 }

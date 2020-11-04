@@ -20,7 +20,7 @@ public class ProductStock {
     /**
      *
      */
-    private Integer stock1;
+    private Integer stock;
 
     /**
      *
